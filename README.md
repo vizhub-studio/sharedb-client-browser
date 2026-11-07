@@ -8,8 +8,6 @@ There are 3 UMD builds provided:
 - `ot-json1-presence-umd.cjs` Includes `ot-json1` and `text-unicode` (both exposed to avoid duplication of `text-unicode` in a bundle where application logic needs direct access to it)
 - `ot-json1-umd.cjs` Includes `ot-json1` and `text-unicode`
 
-In order to work properly, the consuming 
-
 The consuming project needs to put the following in the Vite config (modify depending on which builds you need):
 
 ```
@@ -25,7 +23,20 @@ The consuming project needs to put the following in the Vite config (modify depe
 See also
 
  * [GitHub Issue for ShareDB: Browser build for client](https://github.com/share/sharedb/issues/499)
- * [GitHub Issue for VZCode: Presence cursors](https://github.com/vizhub-core/vzcode/issues/16)
+ * [GitHub Issue for VZCode: Presence cursors](https://github.com/vizhub-studio/vzcode/issues/16)
+
+## Build and integration guide
+
+This repository produces **Browserify UMD bundles** for ShareDB and JSON1-related browser consumption. It is not the upstream ShareDB implementation or a hosted synchronization server.
+
+```bash
+npm ci
+npm run build
+```
+
+The build generates `dist/sharedb-client-umd.cjs`, `dist/ot-json1-umd.cjs`, and `dist/ot-json1-presence-umd.cjs` from [`src/`](src/). Root `package.json` has **no test script**. In consuming Vite projects, add only the prebundling entries actually used and validate OT/ShareDB version compatibility with the consuming application's tests.
+
+The `Upgrading ShareDB` section below documents a **maintainer release procedure**, including publishing and Git mutations. It is not a standard setup command and must not be executed without explicit release authorization.
 
 ## Upgrading ShareDB
 
